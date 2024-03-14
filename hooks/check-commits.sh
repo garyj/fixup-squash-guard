@@ -22,9 +22,13 @@ local_sha=$(git rev-parse HEAD)
 remote_ref="origin/$(git rev-parse --abbrev-ref HEAD)" # Assumes remotes is named origin
 remote_sha=$(git rev-parse "$remote_ref" 2>/dev/null)
 
-if [ -z "$remote_sha" ]
+# Try to get the SHA of the remote branch
+remote_sha=$(git rev-parse "$remote_ref" 2>/dev/null)
+
+# Check the exit status of the last command
+if [ $? -ne 0 ]
 then
-    # Remote branch does not exist, use zero SHA
+    # git rev-parse failed, so the remote branch does not exist
     remote_sha=$z40
 fi
 
