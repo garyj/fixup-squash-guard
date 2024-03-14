@@ -1,0 +1,7 @@
+- id: check-commits
+  name: Check Commits for fixup! and squash!
+  description: This hook checks for fixup! and squash! commits before pushing.
+  entry: hooks/check-commits.sh
+  language: script
+  stages: [pre-push]
+  always_run: true
