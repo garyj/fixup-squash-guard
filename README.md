@@ -1,4 +1,4 @@
-# Pre-commit Hook to Prevent `fixup!` and `squash!` Commits
+# fixup-squash-guard
 
 A [pre-commit](https://pre-commit.com/) hook to prevent `fixup!` and `squash!` commits from being pushed to the remote
 repository.
