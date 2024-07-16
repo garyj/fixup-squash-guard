@@ -14,7 +14,7 @@ Add a reference to this repository in your project's `.pre-commit-config.yaml` f
 ```yaml
 repos:
   - repo: https://github.com/garyj/fixup-squash-guard
-    rev: v0.1.2
+    rev: v0.2.0
     hooks:
       - id: check-commits
 ```
