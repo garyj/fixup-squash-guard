@@ -30,7 +30,6 @@ repository.
 
 ### Hook Behavior
 
-- **IMPORTANT!** It assumes that remote is called `origin`. Will **NOT** work if you have a different remote name.
 - The hook checks all commits that are about to be pushed. If it finds any commit messages starting with `fixup!` or
   `squash!`, it aborts the push and outputs a warning message.
 - To bypass the check temporarily, you can use the `--no-verify` option with `git push`.

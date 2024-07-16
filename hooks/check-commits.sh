@@ -17,10 +17,16 @@ check_commit() {
     fi
 }
 
-local_ref=$(git symbolic-ref HEAD)
+local_ref=$(git symbolic-ref HEAD 2>/dev/null)
+if [ -z "$local_ref" ]; then
+    echo >&2 "Error: You are in a detached HEAD state. Cannot determine the current branch."
+    exit 1
+fi
+
 local_sha=$(git rev-parse HEAD)
-remote_ref="origin/$(git rev-parse --abbrev-ref HEAD)" # Assumes remotes is named origin
-remote_sha=$(git rev-parse "$remote_ref" 2>/dev/null)
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+remote_name=$(git remote | head -n 1) # Get the first remote name
+remote_ref="${remote_name}/${current_branch}"
 
 # Try to get the SHA of the remote branch
 remote_sha=$(git rev-parse "$remote_ref" 2>/dev/null)
@@ -35,7 +41,8 @@ fi
 if [ "$local_sha" = "$z40" ]
 then
     # Handle delete
-    :
+    echo >&2 "Error: Local SHA is zero hash. This might indicate a deleted branch."
+    exit 1
 else
     if [ "$remote_sha" = "$z40" ]
     then
