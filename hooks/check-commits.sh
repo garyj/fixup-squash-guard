@@ -46,11 +46,11 @@ then
 else
     if [ "$remote_sha" = "$z40" ]
     then
-        # New branch, examine all commits
-        range="$local_sha"
+        # New branch, examine all commits reachable from HEAD
+        range=$(git rev-list --first-parent HEAD)
     else
         # Update to existing branch, examine new commits
-        range="$remote_sha..$local_sha"
+        range=$(git rev-list --first-parent "$remote_sha..$local_sha")
     fi
 
     # Check for fixup! and squash! commits
